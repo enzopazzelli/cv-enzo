@@ -4,11 +4,22 @@ import RevealOnScroll from "./RevealOnScroll";
 
 const projects = [
   {
+    title: "Dashboard Ministerio de Desarrollo",
+    desc: "Practica profesionalizante para la Tecnicatura en Ciencia de Datos e IA. Digitalizacion y visualizacion de datos del Ministerio de Desarrollo Social de Santiago del Estero, con analisis de impacto social y propuestas de solucion digital.",
+    icon: "fas fa-chart-line",
+    iconColor: "bg-accent/15 text-accent",
+    gradient: "from-accent to-accent-secondary",
+    tags: ["Next.js", "React", "Tailwind", "Data Science"],
+    preview: "https://practica-profesionalizante-itse.vercel.app/",
+    link: "https://practica-profesionalizante-itse.vercel.app/",
+    repo: "https://github.com/enzopazzelli/practica-profesionalizante",
+  },
+  {
     title: "Tres Marias Indumentaria",
     desc: "Sitio web comercial desarrollado para un taller de indumentaria en Santa Fe. Landing page con catalogo de productos, ofertas, formulario de pedidos y contacto por WhatsApp. Contenido gestionable desde Google Sheets.",
     icon: "fas fa-globe",
-    iconColor: "bg-accent/15 text-accent",
-    gradient: "from-accent to-accent-secondary",
+    iconColor: "bg-accent-secondary/15 text-accent-secondary",
+    gradient: "from-accent to-[#e040fb]",
     tags: ["Next.js", "React", "Tailwind", "Google Sheets"],
     preview: "https://tres-marias-alpha.vercel.app/",
     link: "https://tres-marias-alpha.vercel.app/",
@@ -17,16 +28,16 @@ const projects = [
     title: "MiAdmin",
     desc: "Sistema de gestion comercial de escritorio desarrollado en Python con SQLite. Permite manejar inventario, registrar operaciones de compra/venta y generar reportes profesionales en PDF.",
     icon: "fas fa-boxes-stacked",
-    iconColor: "bg-accent-secondary/15 text-accent-secondary",
-    gradient: "from-accent to-[#e040fb]",
+    iconColor: "bg-accent-tertiary/15 text-accent-tertiary",
+    gradient: "from-accent-secondary to-[#00b4d8]",
     tags: ["Python", "SQLite", "ReportLab", "PDF"],
   },
   {
     title: "Apps Web con React",
     desc: "Conjunto de aplicaciones web construidas con React y JavaScript: un sistema de turnos para gestionar citas y una app de control de gastos para finanzas personales.",
     icon: "fas fa-mobile-screen-button",
-    iconColor: "bg-accent-tertiary/15 text-accent-tertiary",
-    gradient: "from-accent-secondary to-[#00b4d8]",
+    iconColor: "bg-accent-yellow/15 text-accent-yellow",
+    gradient: "from-accent-tertiary to-accent-yellow",
     tags: ["React", "JavaScript", "CSS"],
   },
 ];
@@ -48,7 +59,7 @@ export default function Projects() {
           </h2>
         </RevealOnScroll>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid sm:grid-cols-2 gap-6">
           {projects.map((project, i) => (
             <RevealOnScroll key={i}>
               <div className="bg-card border border-border rounded-2xl transition-all hover:border-accent hover:-translate-y-2 hover:shadow-[0_20px_60px_rgba(0,0,0,0.4)] relative overflow-hidden flex flex-col h-full group">
@@ -118,15 +129,28 @@ export default function Projects() {
                     {project.desc}
                   </p>
 
-                  <div className="flex flex-wrap gap-2 mt-5">
-                    {project.tags.map((tag, j) => (
-                      <span
-                        key={j}
-                        className="font-mono text-[11px] px-2.5 py-1 rounded-md bg-accent/10 text-accent-light font-medium"
+                  <div className="flex items-center gap-3 mt-5 flex-wrap">
+                    <div className="flex flex-wrap gap-2 flex-grow">
+                      {project.tags.map((tag, j) => (
+                        <span
+                          key={j}
+                          className="font-mono text-[11px] px-2.5 py-1 rounded-md bg-accent/10 text-accent-light font-medium"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                    {project.repo && (
+                      <a
+                        href={project.repo}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-text-muted hover:text-accent transition-colors text-lg shrink-0"
+                        title="Ver repositorio"
                       >
-                        {tag}
-                      </span>
-                    ))}
+                        <i className="fab fa-github" />
+                      </a>
+                    )}
                   </div>
                 </div>
               </div>

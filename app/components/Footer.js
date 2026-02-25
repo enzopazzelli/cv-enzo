@@ -26,8 +26,8 @@ const contactLinks = [
 ];
 
 const socialLinks = [
-  { href: "https://github.com/", icon: "fab fa-github", label: "GitHub" },
-  { href: "https://linkedin.com/", icon: "fab fa-linkedin-in", label: "LinkedIn" },
+  { href: "https://github.com/enzopazzelli", icon: "fab fa-github", label: "GitHub" },
+  { href: "https://linkedin.com/in/enzo-pazzelli", icon: "fab fa-linkedin-in", label: "LinkedIn" },
   { href: "mailto:enzopazzelli@gmail.com", icon: "fas fa-envelope", label: "Email" },
 ];
 
