@@ -19,7 +19,7 @@ const codeLines = [
 
 const stats = [
   { number: "+2", label: "Anos en dev" },
-  { number: "+6", label: "Proyectos propios" },
+  { number: "+5", label: "Proyectos propios" },
   { number: "+5", label: "Tecnologias" },
 ];
 

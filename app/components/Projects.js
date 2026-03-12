@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import RevealOnScroll from "./RevealOnScroll";
 
 // Syntax highlight helpers
@@ -11,51 +11,10 @@ const pr = (t) => `<span class="text-blue-400">${t}</span>`;
 const st = (t) => `<span class="text-green-400">"${t}"</span>`;
 const nm = (t) => `<span class="text-yellow-400">${t}</span>`;
 const mu = (t) => `<span class="text-text-muted">${t}</span>`;
+const arr = (...items) =>
+  `${op("[")}${items.map((s, i) => `${st(s)}${i < items.length - 1 ? mu(", ") : ""}`).join("")}${op("]")}`;
 
 const projects = [
-  {
-    title: "Dashboard Ministerio de Desarrollo",
-    filename: "dashboard.js",
-    desc: "Práctica profesionalizante para la Tecnicatura en Ciencia de Datos e IA. Digitalización y visualización de datos del Ministerio de Desarrollo Social de Santiago del Estero.",
-    gradient: "from-accent to-accent-secondary",
-    glowColor: "bg-accent/10",
-    tags: ["Next.js", "React", "Tailwind", "Data Science"],
-    link: "https://practica-profesionalizante-itse.vercel.app/",
-    repo: "https://github.com/enzopazzelli/practica-profesionalizante",
-    codeLines: [
-      { indent: 0, html: `${kw("const")} ${vn("dashboard")} ${op("=")} ${op("{")}` },
-      { indent: 1, html: `${pr("tipo")}${op(":")} ${st("Data Dashboard")}${mu(",")}` },
-      { indent: 1, html: `${pr("stack")}${op(":")} ${op("[")}` },
-      { indent: 2, html: `${st("Next.js")}${mu(",")}` },
-      { indent: 2, html: `${st("React")}${mu(",")}` },
-      { indent: 2, html: `${st("Tailwind")}` },
-      { indent: 1, html: `${op("]")}${mu(",")}` },
-      { indent: 1, html: `${pr("area")}${op(":")} ${st("Data Science")}${mu(",")}` },
-      { indent: 1, html: `${pr("activo")}${op(":")} ${kw("true")}` },
-      { indent: 0, html: `${op("}")}${mu(";")}` },
-    ],
-  },
-  {
-    title: "Tres Marias Indumentaria",
-    filename: "tres-marias.js",
-    desc: "Sitio web comercial para un taller de indumentaria en Santa Fe. Landing page con catálogo de productos, ofertas, formulario de pedidos y contacto por WhatsApp.",
-    gradient: "from-accent to-[#e040fb]",
-    glowColor: "bg-[#e040fb]/10",
-    tags: ["Next.js", "React", "Tailwind", "Google Sheets"],
-    link: "https://tres-marias-alpha.vercel.app/",
-    codeLines: [
-      { indent: 0, html: `${kw("const")} ${vn("tresMarias")} ${op("=")} ${op("{")}` },
-      { indent: 1, html: `${pr("tipo")}${op(":")} ${st("Landing Comercial")}${mu(",")}` },
-      { indent: 1, html: `${pr("stack")}${op(":")} ${op("[")}` },
-      { indent: 2, html: `${st("Next.js")}${mu(",")}` },
-      { indent: 2, html: `${st("React")}${mu(",")}` },
-      { indent: 2, html: `${st("Tailwind")}` },
-      { indent: 1, html: `${op("]")}${mu(",")}` },
-      { indent: 1, html: `${pr("cms")}${op(":")} ${st("Google Sheets")}${mu(",")}` },
-      { indent: 1, html: `${pr("activo")}${op(":")} ${kw("true")}` },
-      { indent: 0, html: `${op("}")}${mu(";")}` },
-    ],
-  },
   {
     title: "GeoMuni",
     filename: "geomuni.js",
@@ -63,16 +22,13 @@ const projects = [
     gradient: "from-[#22c55e] to-[#06b6d4]",
     glowColor: "bg-[#22c55e]/10",
     tags: ["Next.js", "MapLibre GL", "PostGIS", "Neon"],
+    preview: "https://geomuni.vercel.app/",
     link: "https://geomuni.vercel.app/",
     repo: "https://github.com/enzopazzelli/geomuni",
     codeLines: [
       { indent: 0, html: `${kw("const")} ${vn("geomuni")} ${op("=")} ${op("{")}` },
       { indent: 1, html: `${pr("tipo")}${op(":")} ${st("Plataforma GIS")}${mu(",")}` },
-      { indent: 1, html: `${pr("stack")}${op(":")} ${op("[")}` },
-      { indent: 2, html: `${st("Next.js")}${mu(",")}` },
-      { indent: 2, html: `${st("MapLibre GL")}${mu(",")}` },
-      { indent: 2, html: `${st("PostGIS")}` },
-      { indent: 1, html: `${op("]")}${mu(",")}` },
+      { indent: 1, html: `${pr("stack")}${op(":")} ${arr("Next.js", "MapLibre GL", "PostGIS")}${mu(",")}` },
       { indent: 1, html: `${pr("db")}${op(":")} ${st("Neon PostgreSQL")}${mu(",")}` },
       { indent: 1, html: `${pr("activo")}${op(":")} ${kw("true")}` },
       { indent: 0, html: `${op("}")}${mu(";")}` },
@@ -85,17 +41,32 @@ const projects = [
     gradient: "from-[#f59e0b] to-[#ef4444]",
     glowColor: "bg-[#f59e0b]/10",
     tags: ["Next.js", "Supabase", "Tailwind", "Zustand"],
+    preview: "https://turnopro-snowy.vercel.app/",
     link: "https://turnopro-snowy.vercel.app/",
     repo: "https://github.com/enzopazzelli/turnopro",
     codeLines: [
       { indent: 0, html: `${kw("const")} ${vn("turnoPro")} ${op("=")} ${op("{")}` },
       { indent: 1, html: `${pr("tipo")}${op(":")} ${st("SaaS Multi-Tenant")}${mu(",")}` },
-      { indent: 1, html: `${pr("stack")}${op(":")} ${op("[")}` },
-      { indent: 2, html: `${st("Next.js")}${mu(",")}` },
-      { indent: 2, html: `${st("Supabase")}${mu(",")}` },
-      { indent: 2, html: `${st("Tailwind")}` },
-      { indent: 1, html: `${op("]")}${mu(",")}` },
+      { indent: 1, html: `${pr("stack")}${op(":")} ${arr("Next.js", "Supabase", "Tailwind")}${mu(",")}` },
       { indent: 1, html: `${pr("roles")}${op(":")} ${nm("4")}${mu(",")}` },
+      { indent: 1, html: `${pr("activo")}${op(":")} ${kw("true")}` },
+      { indent: 0, html: `${op("}")}${mu(";")}` },
+    ],
+  },
+  {
+    title: "Tres Marias Indumentaria",
+    filename: "tres-marias.js",
+    desc: "Sitio web comercial para un taller de indumentaria en Santa Fe. Landing page con catálogo de productos, ofertas, formulario de pedidos y contacto por WhatsApp.",
+    gradient: "from-accent to-[#e040fb]",
+    glowColor: "bg-[#e040fb]/10",
+    tags: ["Next.js", "React", "Tailwind", "Google Sheets"],
+    preview: "https://tres-marias-alpha.vercel.app/",
+    link: "https://tres-marias-alpha.vercel.app/",
+    codeLines: [
+      { indent: 0, html: `${kw("const")} ${vn("tresMarias")} ${op("=")} ${op("{")}` },
+      { indent: 1, html: `${pr("tipo")}${op(":")} ${st("Landing Comercial")}${mu(",")}` },
+      { indent: 1, html: `${pr("stack")}${op(":")} ${arr("Next.js", "React", "Tailwind")}${mu(",")}` },
+      { indent: 1, html: `${pr("cms")}${op(":")} ${st("Google Sheets")}${mu(",")}` },
       { indent: 1, html: `${pr("activo")}${op(":")} ${kw("true")}` },
       { indent: 0, html: `${op("}")}${mu(";")}` },
     ],
@@ -117,38 +88,48 @@ const projects = [
       { indent: 0, html: `${op("}")}${mu(";")}` },
     ],
   },
-  {
-    title: "Apps Web con React",
-    filename: "apps-react.js",
-    desc: "Aplicaciones web construidas con React: un sistema de turnos para gestionar citas y una app de control de gastos para finanzas personales.",
-    gradient: "from-accent-tertiary to-accent-yellow",
-    glowColor: "bg-accent-yellow/10",
-    tags: ["React", "JavaScript", "CSS"],
-    codeLines: [
-      { indent: 0, html: `${kw("const")} ${vn("appsReact")} ${op("=")} ${op("{")}` },
-      { indent: 1, html: `${pr("tipo")}${op(":")} ${st("Apps Web")}${mu(",")}` },
-      { indent: 1, html: `${pr("stack")}${op(":")} ${op("[")}` },
-      { indent: 2, html: `${st("React")}${mu(",")}` },
-      { indent: 2, html: `${st("JavaScript")}${mu(",")}` },
-      { indent: 2, html: `${st("CSS")}` },
-      { indent: 1, html: `${op("]")}${mu(",")}` },
-      { indent: 1, html: `${pr("activo")}${op(":")} ${kw("true")}` },
-      { indent: 0, html: `${op("}")}${mu(";")}` },
-    ],
-  },
 ];
 
-function ProjectCard({ project }) {
-  const codeRef = useRef(null);
+function FlipButton({ onClick, icon, label }) {
+  return (
+    <button
+      onClick={onClick}
+      className="absolute bottom-2.5 right-2.5 z-10 flex items-center gap-1.5 bg-surface/90 border border-border text-text-muted hover:text-accent hover:border-accent text-[11px] font-mono px-2.5 py-1.5 rounded-lg transition-all backdrop-blur-sm"
+    >
+      <i className={`${icon} text-[10px]`} />
+      <span>{label}</span>
+    </button>
+  );
+}
 
-  useEffect(() => {
-    if (!codeRef.current) return;
+function ProjectCard({ project }) {
+  const [flipped, setFlipped] = useState(false);
+  const codeRef = useRef(null);
+  const staticCodeRef = useRef(null);
+
+  const triggerCodeAnimation = () => {
     const el = codeRef.current;
+    if (!el) return;
+    el.querySelectorAll(".code-line").forEach((line, i) => {
+      line.style.animation = "none";
+      void line.offsetHeight;
+      line.style.animation = `code-appear 0.4s ease ${i * 0.07}s forwards`;
+    });
+  };
+
+  const handleFlip = (toCode) => {
+    setFlipped(toCode);
+    if (toCode) setTimeout(triggerCodeAnimation, 360);
+  };
+
+  // Scroll-triggered animation for static code block (MiAdmin)
+  useEffect(() => {
+    if (project.preview || !staticCodeRef.current) return;
+    const el = staticCodeRef.current;
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          const lines = el.querySelectorAll(".code-line");
-          lines.forEach((line, i) => {
+          el.querySelectorAll(".code-line").forEach((line, i) => {
             line.style.animation = `code-appear 0.4s ease ${i * 0.07 + 0.15}s forwards`;
           });
           observer.disconnect();
@@ -158,83 +139,130 @@ function ProjectCard({ project }) {
     );
     observer.observe(el);
     return () => observer.disconnect();
-  }, []);
+  }, [project.preview]);
 
   return (
     <div className="bg-card border border-border rounded-2xl transition-all hover:border-accent hover:-translate-y-2 hover:shadow-[0_20px_60px_rgba(0,0,0,0.4)] relative overflow-hidden flex flex-col h-full group">
       {/* Top gradient line */}
-      <div
-        className={`absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r ${project.gradient} transition-all group-hover:h-1`}
-      />
+      <div className={`absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r ${project.gradient} transition-all group-hover:h-1`} />
 
-      {/* Code preview */}
-      <div ref={codeRef} className="border-b border-border bg-surface/30 p-5 relative">
-        {/* Window chrome */}
-        <div className="flex items-center gap-1.5 mb-4">
-          <div className="w-2.5 h-2.5 rounded-full bg-[#ff5f57]" />
-          <div className="w-2.5 h-2.5 rounded-full bg-[#ffbd2e]" />
-          <div className="w-2.5 h-2.5 rounded-full bg-[#28c840]" />
-          <span className="ml-auto font-mono text-[11px] text-text-muted">
-            {project.filename}
-          </span>
-        </div>
-
-        {/* Code lines */}
-        <div className="font-mono text-[11px] sm:text-xs leading-[1.75]">
-          {project.codeLines.map((line, i) => (
-            <div
-              key={i}
-              className="code-line opacity-0"
-              style={{ paddingLeft: `${line.indent * 14}px` }}
-              dangerouslySetInnerHTML={{ __html: line.html }}
-            />
-          ))}
-        </div>
-
-        {/* Decorative glow */}
+      {project.preview ? (
+        /* Flip card */
         <div
-          className={`absolute -bottom-8 -right-8 w-32 h-32 ${project.glowColor} rounded-full blur-3xl pointer-events-none`}
-        />
-      </div>
+          className="relative overflow-hidden border-b border-border bg-surface"
+          style={{ height: "200px", perspective: "1200px" }}
+        >
+          <div
+            className="relative w-full h-full transition-transform duration-700"
+            style={{
+              transformStyle: "preserve-3d",
+              transform: flipped ? "rotateY(180deg)" : "rotateY(0deg)",
+            }}
+          >
+            {/* FRONT: iframe */}
+            <div className="absolute inset-0" style={{ backfaceVisibility: "hidden" }}>
+              <a
+                href={project.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="absolute inset-0 block overflow-hidden"
+              >
+                <iframe
+                  src={project.preview}
+                  title={`Preview de ${project.title}`}
+                  className="pointer-events-none select-none"
+                  style={{
+                    position: "absolute",
+                    width: "1280px",
+                    height: "900px",
+                    left: "50%",
+                    top: "0",
+                    transform: "translateX(-50%) scale(0.25)",
+                    transformOrigin: "top center",
+                    border: "none",
+                  }}
+                  loading="lazy"
+                  tabIndex={-1}
+                />
+                <div className="absolute inset-0 bg-accent/0 group-hover:bg-accent/5 transition-colors" />
+              </a>
+              <FlipButton
+                onClick={(e) => { e.stopPropagation(); handleFlip(true); }}
+                icon="fas fa-code"
+                label="código"
+              />
+            </div>
+
+            {/* BACK: code block */}
+            <div
+              ref={codeRef}
+              className="absolute inset-0 bg-surface/40 p-4"
+              style={{ backfaceVisibility: "hidden", transform: "rotateY(180deg)" }}
+            >
+              <div className="flex items-center gap-1.5 mb-3">
+                <div className="w-2 h-2 rounded-full bg-[#ff5f57]" />
+                <div className="w-2 h-2 rounded-full bg-[#ffbd2e]" />
+                <div className="w-2 h-2 rounded-full bg-[#28c840]" />
+                <span className="ml-auto font-mono text-[10px] text-text-muted">{project.filename}</span>
+              </div>
+              <div className="font-mono text-[11px] leading-[1.75]">
+                {project.codeLines.map((line, i) => (
+                  <div
+                    key={i}
+                    className="code-line opacity-0"
+                    style={{ paddingLeft: `${line.indent * 14}px` }}
+                    dangerouslySetInnerHTML={{ __html: line.html }}
+                  />
+                ))}
+              </div>
+              <div className={`absolute -bottom-6 -right-6 w-28 h-28 ${project.glowColor} rounded-full blur-3xl pointer-events-none`} />
+              <FlipButton onClick={() => handleFlip(false)} icon="fas fa-globe" label="preview" />
+            </div>
+          </div>
+        </div>
+      ) : (
+        /* Static code block for projects without live preview */
+        <div ref={staticCodeRef} className="border-b border-border bg-surface/30 p-5 relative">
+          <div className="flex items-center gap-1.5 mb-3">
+            <div className="w-2.5 h-2.5 rounded-full bg-[#ff5f57]" />
+            <div className="w-2.5 h-2.5 rounded-full bg-[#ffbd2e]" />
+            <div className="w-2.5 h-2.5 rounded-full bg-[#28c840]" />
+            <span className="ml-auto font-mono text-[11px] text-text-muted">{project.filename}</span>
+          </div>
+          <div className="font-mono text-[11px] sm:text-xs leading-[1.75]">
+            {project.codeLines.map((line, i) => (
+              <div
+                key={i}
+                className="code-line opacity-0"
+                style={{ paddingLeft: `${line.indent * 14}px` }}
+                dangerouslySetInnerHTML={{ __html: line.html }}
+              />
+            ))}
+          </div>
+          <div className={`absolute -bottom-8 -right-8 w-32 h-32 ${project.glowColor} rounded-full blur-3xl pointer-events-none`} />
+        </div>
+      )}
 
       {/* Card body */}
       <div className="p-5 sm:p-6 flex flex-col flex-grow">
         <h3 className="text-base font-bold mb-2">{project.title}</h3>
-        <p className="text-text-secondary text-sm leading-relaxed flex-grow">
-          {project.desc}
-        </p>
-
+        <p className="text-text-secondary text-sm leading-relaxed flex-grow">{project.desc}</p>
         <div className="flex items-center gap-3 mt-4 flex-wrap">
           <div className="flex flex-wrap gap-1.5 flex-grow">
             {project.tags.map((tag, j) => (
-              <span
-                key={j}
-                className="font-mono text-[11px] px-2.5 py-1 rounded-md bg-accent/10 text-accent-light font-medium"
-              >
+              <span key={j} className="font-mono text-[11px] px-2.5 py-1 rounded-md bg-accent/10 text-accent-light font-medium">
                 {tag}
               </span>
             ))}
           </div>
           <div className="flex items-center gap-2.5 shrink-0">
             {project.repo && (
-              <a
-                href={project.repo}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-text-muted hover:text-accent transition-colors text-base"
-                title="Ver repositorio"
-              >
+              <a href={project.repo} target="_blank" rel="noopener noreferrer" className="text-text-muted hover:text-accent transition-colors text-base" title="Ver repositorio">
                 <i className="fab fa-github" />
               </a>
             )}
             {project.link && (
-              <a
-                href={project.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-text-muted hover:text-accent transition-colors text-base"
-                title="Ver sitio"
-              >
+              <a href={project.link} target="_blank" rel="noopener noreferrer" className="text-text-muted hover:text-accent transition-colors text-base" title="Ver sitio">
                 <i className="fas fa-external-link-alt" />
               </a>
             )}
