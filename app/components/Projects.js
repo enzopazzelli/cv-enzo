@@ -72,6 +72,23 @@ const projects = [
     ],
   },
   {
+    title: "Gymos",
+    filename: "gymos.ts",
+    desc: "Sistema de gestión para gimnasios. Control de socios, membresías, pagos y rutinas con una interfaz moderna en TypeScript y persistencia con Drizzle ORM.",
+    gradient: "from-[#8b5cf6] to-[#3b82f6]",
+    glowColor: "bg-[#8b5cf6]/10",
+    tags: ["Next.js", "TypeScript", "Drizzle ORM"],
+    repo: "https://github.com/enzopazzelli/gymos",
+    codeLines: [
+      { indent: 0, html: `${kw("const")} ${vn("gymos")} ${op("=")} ${op("{")}` },
+      { indent: 1, html: `${pr("tipo")}${op(":")} ${st("Gestor de Gimnasio")}${mu(",")}` },
+      { indent: 1, html: `${pr("stack")}${op(":")} ${arr("Next.js", "TypeScript", "Drizzle")}${mu(",")}` },
+      { indent: 1, html: `${pr("db")}${op(":")} ${st("PostgreSQL")}${mu(",")}` },
+      { indent: 1, html: `${pr("activo")}${op(":")} ${kw("true")}` },
+      { indent: 0, html: `${op("}")}${mu(";")}` },
+    ],
+  },
+  {
     title: "MiAdmin",
     filename: "mi-admin.js",
     desc: "Sistema de gestión comercial de escritorio en Python con SQLite. Maneja inventario, registra operaciones de compra/venta y genera reportes profesionales en PDF.",
